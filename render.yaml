@@ -15,6 +15,4 @@ services:
 
 databases:
   - name: inventory-db
-    databaseName: inventory_db
-    user: postgres
     plan: free
