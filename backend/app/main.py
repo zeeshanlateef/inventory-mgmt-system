@@ -19,12 +19,19 @@ app = FastAPI(
 # CORS
 cors_origins = os.getenv(
     "CORS_ORIGINS",
-    "http://localhost:3000,http://localhost:5173,https://inventory-mgmt-system.vercel.app,https://inventory-mgmt-system-frontend.vercel.app"
+    "http://localhost:3000,http://localhost:5173,https://inventory-mgmt-system.vercel.app,https://inventory-mgmt-system-frontend.vercel.app,https://inventory-mgmt-system-mu.vercel.app"
 ).split(",")
+cors_origins = [origin.strip() for origin in cors_origins]
+
+# If '*' is in allowed origins, we must set allow_credentials to False to prevent FastAPI startup error
+allow_credentials = True
+if "*" in cors_origins:
+    allow_credentials = False
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in cors_origins],
-    allow_credentials=True,
+    allow_origins=cors_origins,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
