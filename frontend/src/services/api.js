@@ -5,7 +5,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'https://inventory-mgmt-system.
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 15000,
+  timeout: 60000, // Increased to 60s to accommodate Render free tier cold starts
 });
 
 // Response interceptor — normalize errors
